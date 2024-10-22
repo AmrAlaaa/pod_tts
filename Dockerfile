@@ -21,6 +21,7 @@ WORKDIR /app/tts
 # Command to run the FastAPI application with Uvicorn
 CMD ["uvicorn", "tts_api:app", "--host", "0.0.0.0", "--port", "9000"]
 
+# docker build  -t pod_tts
 # docker run --rm -v C:\Users\Amr_Alaa\AppData\Local\tts:/root/.local/share/tts -v C:\Users\Amr_Alaa\tts-output:/out coquiapi
 # docker run --rm -v C:\Users\Amr_Alaa\AppData\Local\tts:/root/.local/share/tts -v C:\Users\Amr_Alaa\tts-output:/out -it --entrypoint /bin/bash coquiapi
-# docker run --rm --gpus all -v C:\Users\Amr_Alaa\AppData\Local\tts:/root/.local/share/tts -v C:\Users\Amr_Alaa\tts-output:/out -it --entrypoint /bin/bash coquiapi
+# docker run --rm --gpus all -p 9000:9000 -v C:\Users\Amr_Alaa\AppData\Local\tts:/root/.local/share/tts -v C:\Users\Amr_Alaa\tts-output:/out -it --entrypoint /bin/bash coquiapi

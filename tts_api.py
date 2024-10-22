@@ -8,7 +8,7 @@ import uvicorn
 
 TTS_IP = "127.0.0.1"
 TTS_PORT = "9000"
-os.environ["COQUI_TOS_AGREED"]
+os.environ["COQUI_TOS_AGREED"] = "1"
 
 # Initialize FastAPI app
 app = FastAPI()
