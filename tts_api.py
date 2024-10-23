@@ -108,7 +108,12 @@ async def generate_podcast(request: PodcastRequest):
     combined_audio.export(final_audio_path, format="wav")
 
     # Return the URL for the final audio file
-    return {"audio_url": f"http://{TTS_IP}:{TTS_PORT}/static/final_output.wav"}
+    return {
+    "status": "success",
+    "output_file_url": f"http://{TTS_IP}:{TTS_PORT}/static/final_output.wav"
+    }
+
+    # return {"output_file_url": f"http://{TTS_IP}:{TTS_PORT}/static/final_output.wav"}
 
 # Run the app
 if __name__ == "__main__":
