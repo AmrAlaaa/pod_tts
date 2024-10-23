@@ -5,6 +5,7 @@ from TTS.api import TTS
 from pydub import AudioSegment
 from tempfile import NamedTemporaryFile
 import uvicorn
+from fastapi.staticfiles import StaticFiles
 
 TTS_IP = "127.0.0.1"
 TTS_PORT = "9000"
@@ -12,6 +13,7 @@ os.environ["COQUI_TOS_AGREED"] = "1"
 
 # Initialize FastAPI app
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="/out"), name="static")
 
 # Define input model for the request
 class PodcastRequest(BaseModel):
@@ -102,12 +104,12 @@ async def generate_podcast(request: PodcastRequest):
             combined_audio += segment
 
     # Save final combined audio file
-    final_audio_path = "/final_output.wav"
+    final_audio_path = "/out/final_output.wav"
     combined_audio.export(final_audio_path, format="wav")
 
     # Return the URL for the final audio file
-    return {"audio_url": f"{final_audio_path}"}
+    return {"audio_url": f"http://{TTS_IP}:{TTS_PORT}/static/final_output.wav"}
 
 # Run the app
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=9000)
+    uvicorn.run(app, host="0.0.0.0", port=TTS_PORT)
