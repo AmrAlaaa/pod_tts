@@ -5,6 +5,8 @@
     docker_image_name: pod_tts
     docker_image_tag: latest
     dockerfile_path: .
+    # Define a unique timestamp for each build to use as BUILD_DATE
+    build_date: "{{ lookup('pipe', 'date +%s') }}"
 
   tasks:
     - name: Ensure Docker is installed
@@ -14,6 +16,6 @@
 
     - name: Build the Docker image
       shell: |
-        docker build -t {{ docker_image_name }}:{{ docker_image_tag }} .
+        docker build --build-arg BUILD_DATE={{build_date}} -t {{ docker_image_name }}:{{ docker_image_tag }} .
       args:
         chdir: "{{ dockerfile_path }}"

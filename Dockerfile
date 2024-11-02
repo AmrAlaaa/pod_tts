@@ -13,6 +13,9 @@ RUN pip install fastapi uvicorn pydub
 # Expose the port for FastAPI
 EXPOSE 9000
 
+# Add a build argument to control caching for the git clone step
+ARG BUILD_DATE
+
 RUN git clone https://github.com/AmrAlaaa/pod_tts.git /app/tts
 
 # Set the working directory
