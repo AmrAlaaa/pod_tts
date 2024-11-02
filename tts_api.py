@@ -6,9 +6,10 @@ from pydub import AudioSegment
 from tempfile import NamedTemporaryFile
 import uvicorn
 from fastapi.staticfiles import StaticFiles
+import torch
 
 TTS_IP = os.environ["TTS_IP"]
-TTS_PORT = os.environ["TTS_PORT"]
+TTS_PORT = int(os.environ["TTS_PORT"]) # Retrieve TTS_PORT and ensure it's an integer
 os.environ["COQUI_TOS_AGREED"] = "1"
 
 # Initialize FastAPI app
@@ -23,7 +24,12 @@ class PodcastRequest(BaseModel):
     speaker2Gender: str = None  # Optional if only 1 speaker
 
 # Initialize Coqui TTS model (use GPU if available)
-tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2", gpu=True)
+tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
+
+# Check if GPU is available and set device accordingly
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+tts.to(device)
+print("Using " + device)
 
 # Define speaker WAV files (preloaded)
 female_voices = ["voices/female_01.wav", "voices/female_02.wav"]

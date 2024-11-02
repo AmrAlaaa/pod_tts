@@ -2,7 +2,7 @@
 image_name: pod_tts
 image_tag: latest
 container_name: TTS_container
-TTS_PORT: 9000 #TTS API PORT
+TTS_PORT: "9009" #TTS API PORT
 
 ports:
   #Host:conatainer
