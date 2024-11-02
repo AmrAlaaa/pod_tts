@@ -29,7 +29,7 @@ tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
 # Check if GPU is available and set device accordingly
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 tts.to(device)
-print("Using " + device)
+print(f"> Using device: {device}")
 
 # Define speaker WAV files (preloaded)
 female_voices = ["voices/female_01.wav", "voices/female_02.wav"]
