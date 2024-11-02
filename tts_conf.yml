@@ -1,0 +1,15 @@
+---
+image_name: pod_tts
+image_tag: latest
+container_name: TTS_container
+ports:
+  #Host:conatainer
+  - "9000:9000"
+volumes:
+  - "/mnt/c/Users/Amr/AppData/Local/tts:/root/.local/share/tts"
+  - "/mnt/c/Users/Amr/Music:/out"
+env_vars:
+  NVIDIA_VISIBLE_DEVICES: all
+  TTS_IP: "192.168.1.46"
+  TTS_PORT: "9000"
+entrypoint: python3 tts_api.py

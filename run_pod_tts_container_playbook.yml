@@ -3,40 +3,38 @@
   hosts: localhost
   become: yes
 
+  vars_files:
+    - tts_conf.yml
+  
   tasks:
+    # - name: Check if the image exists
+    #   shell: docker images -q pod_tts:latest
+    #   register: image_exists
+    #   ignore_errors: yes
 
-    - name: Check if the image exists
-      shell: docker images -q pod_tts:latest
-      register: image_exists
-      ignore_errors: yes
+    # - name: Set image existence fact
+    #   set_fact:
+    #     image_found: "{{ image_exists.stdout != '' }}"
 
-    - name: Set image existence fact
-      set_fact:
-        image_found: "{{ image_exists.stdout != '' }}"
-
-    - name: Debug image existence
-      debug:
-        msg: "Image exists: {{ image_found }}"
+    # - name: Debug image existence
+    #   debug:
+    #     msg: "Image exists: {{ image_found }}"
 
     - name: Run Docker container with GPU
       docker_container:
-        name: TTS_container
-        image: pod_tts
+        name: "{{container_name}}"
+        image: "{{ image_name }}:{{ image_tag }}"
         state: started
         runtime: nvidia
 
-        env:
-          NVIDIA_VISIBLE_DEVICES: all
+        env: "{{ env_vars }}"
         
-        ports:
-          - "9000:9000"
+        ports: "{{ports}}"
         
-        volumes:
-          - "/mnt/c/Users/Amr/AppData/Local/tts:/root/.local/share/tts"
-          - "/mnt/c/Users/Amr/Music:/out"
+        volumes: "{{volumes}}"
 
         auto_remove: yes
 
-        entrypoint: python3 tts_api.py
+        entrypoint: "{{entrypoint}}"
 
         detach: yes

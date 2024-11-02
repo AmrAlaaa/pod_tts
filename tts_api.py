@@ -7,8 +7,8 @@ from tempfile import NamedTemporaryFile
 import uvicorn
 from fastapi.staticfiles import StaticFiles
 
-TTS_IP = "127.0.0.1"
-TTS_PORT = "9000"
+TTS_IP = os.environ["TTS_IP"]
+TTS_PORT = os.environ["TTS_PORT"]
 os.environ["COQUI_TOS_AGREED"] = "1"
 
 # Initialize FastAPI app
