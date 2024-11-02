@@ -1,0 +1,19 @@
+---
+- name: Build Docker image
+  hosts: localhost
+  vars:
+    docker_image_name: pod_tts
+    docker_image_tag: latest
+    dockerfile_path: .
+
+  tasks:
+    - name: Ensure Docker is installed
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Build the Docker image
+      shell: |
+        docker build -t {{ docker_image_name }}:{{ docker_image_tag }} .
+      args:
+        chdir: "{{ dockerfile_path }}"
