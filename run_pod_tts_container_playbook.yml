@@ -1,6 +1,6 @@
 ---
 - name: Run Podcast TTS API with GPU support
-  hosts: localhost
+  hosts: windowsLOQ
   become: yes
 
   vars_files:
