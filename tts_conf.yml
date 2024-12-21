@@ -12,6 +12,6 @@ volumes:
   - "/mnt/c/Users/Amr/Music:/out"
 env_vars:
   NVIDIA_VISIBLE_DEVICES: all
-  TTS_IP: "192.168.1.46" #IP of the TTS API
+  TTS_IP: "192.168.1.52" #IP of the TTS API
   TTS_PORT: "{{TTS_PORT}}"
 entrypoint: python3 tts_api.py
