@@ -21,7 +21,8 @@
     #     msg: "Image exists: {{ image_found }}"
 
     - name: Run Docker container with GPU
-      docker_container:
+      # docker_container:
+      community.docker.docker_container:
         name: "{{container_name}}"
         image: "{{ image_name }}:{{ image_tag }}"
         state: started

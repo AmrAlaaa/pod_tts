@@ -20,9 +20,12 @@ RUN git clone https://github.com/AmrAlaaa/pod_tts.git /app/tts
 
 # Set the working directory
 WORKDIR /app/tts
-
+ENTRYPOINT ["uvicorn"]
+# ENTRYPOINT ["python3"]
+# CMD ["tts_api.py"]
 # Command to run the FastAPI application with Uvicorn
-CMD ["uvicorn", "tts_api:app", "--host", "0.0.0.0", "--port", "9000"]
+CMD ["tts_api:app", "--host", "0.0.0.0", "--port", "9000"]
+# CMD [ "python3", "tts_api.py" ]
 
 # docker build  -t pod_tts
 # docker run --rm -v C:\Users\Amr_Alaa\AppData\Local\tts:/root/.local/share/tts -v C:\Users\Amr_Alaa\tts-output:/out coquiapi
@@ -30,5 +33,6 @@ CMD ["uvicorn", "tts_api:app", "--host", "0.0.0.0", "--port", "9000"]
 # docker run --rm --gpus all -p 9000:9000 -v C:\Users\Amr_Alaa\AppData\Local\tts:/root/.local/share/tts -v C:\Users\Amr_Alaa\tts-output:/out -it --entrypoint /bin/bash coquiapi
 
 # docker run --rm --gpus all -p 9000:9000 -v C:\Users\Amr\AppData\Local\tts:/root/.local/share/tts -v C:\Users\Amr\Music:/out -it --entrypoint /bin/bash pod_tts
+# docker run --rm --gpus all -p 9000:9000 -v C:\Users\Amr\AppData\Local\tts:/root/.local/share/tts -v C:\Users\Amr\Music:/out -e TTS_IP="192.168.1.52" -e TTS_PORT="9000" --entrypoint "python3 tts_api.py" pod_tts
 
 # docker run --rm --gpus all -p 9000:9000 -v C:\Users\Amr\AppData\Local\tts:/root/.local/share/tts -v C:\Users\Amr\Music:/out pod_tts

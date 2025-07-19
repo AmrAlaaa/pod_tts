@@ -8,6 +8,10 @@ import uvicorn
 from fastapi.staticfiles import StaticFiles
 import torch
 
+#logging the IP and Port
+print("TTS_IP:", os.getenv("TTS_IP"))
+print("TTS_PORT:", os.getenv("TTS_PORT"))
+
 TTS_IP = os.environ["TTS_IP"]
 TTS_PORT = int(os.environ["TTS_PORT"]) # Retrieve TTS_PORT and ensure it's an integer
 os.environ["COQUI_TOS_AGREED"] = "1"
