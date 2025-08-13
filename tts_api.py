@@ -8,7 +8,7 @@ import uvicorn
 from fastapi.staticfiles import StaticFiles
 import torch
 
-#logging the IP and Port
+#logging the IP and Port (Must be set as env variables on OS(inside docker image))
 print("TTS_IP:", os.getenv("TTS_IP"))
 print("TTS_PORT:", os.getenv("TTS_PORT"))
 
@@ -56,7 +56,7 @@ def synthesize_speech(text, speaker_wav, output_path):
 
 @app.get("/")
 async def root():
-    return {"message": "Server is working"}
+    return {"message": "TTS Server is working"}
 
 # API endpoint to generate the podcast
 @app.post("/generate-podcast")
